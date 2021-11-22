@@ -21,3 +21,25 @@ signs:
     - '--output-signature=${signature}'
     - '${artifact}'
   artifacts: checksum
+
+dockers:
+- image_templates:
+  - 'ghcr.io/caarlos0-graveyard/gorel-keyless:{{ .Tag }}'
+  dockerfile: Dockerfile
+  build_flag_templates:
+  - "--pull"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.name={{.ProjectName}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+  - "--label=org.opencontainers.image.source={{.GitURL}}"
+
+docker_signs:
+  - cmd: cosign
+    env:
+    - COSIGN_EXPERIMENTAL=1
+    artifacts: images
+    args:
+    - 'sign'
+    - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
+    - '${artifact}'
