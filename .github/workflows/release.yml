@@ -29,7 +29,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - run: go install github.com/sigstore/cosign/cmd/cosign@latest
-      - run: cosign --version
+      - run: cosign version
       - run: cosign sign-blob --help
         env:
           COSIGN_EXPERIMENTAL: 1
