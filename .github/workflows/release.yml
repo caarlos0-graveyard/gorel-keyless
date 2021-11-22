@@ -29,14 +29,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - run: install ./cosign /usr/local/bin/cosign
-      - run: cosign version
-      - run: cosign sign-blob --help
-        env:
-          COSIGN_EXPERIMENTAL: 1
-      - uses: goreleaser/goreleaser-action@v2
-        if: success() && startsWith(github.ref, 'refs/tags/')
-        with:
-          version: latest
-          args: release --rm-dist --debug
+      - run: install ./goreleaser /usr/local/bin/goreleaser
+      - if: success() && startsWith(github.ref, 'refs/tags/')
+        run: goreleaser release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
