@@ -28,6 +28,7 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
+      - run: install ./cosign /usr/local/bin/cosign
       - run: cosign version
       - run: cosign sign-blob --help
         env:
