@@ -24,7 +24,7 @@ signs:
 
 dockers:
 - image_templates:
-  - 'ghcr.io/caarlos0/gorel-keyless:{{ .Tag }}'
+  - 'caarlos0/gorel-keyless:{{ .Tag }}'
   dockerfile: Dockerfile
   build_flag_templates:
   - "--pull"
