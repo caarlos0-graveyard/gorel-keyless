@@ -13,7 +13,7 @@ signs:
 - cmd: cosign
   env:
     - COSIGN_EXPERIMENTAL=1
-  certificate: '{{ trimsuffix .Env.artifact ".txt" }}.pem'
+  certificate: 'dist/{{ trimsuffix .Env.artifactName ".txt" }}.pem'
   args:
     - sign-blob
     - '--oidc-issuer={{if index .Env "CI"}}https://token.actions.githubusercontent.com{{else}}https://oauth2.sigstore.dev/auth{{end}}'
