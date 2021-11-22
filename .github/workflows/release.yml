@@ -29,6 +29,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - run: go install github.com/sigstore/cosign/cmd/cosign@latest
+      - run: cosign --version
+      - run: cosign sign-blob --help
+        env:
+          COSIGN_EXPERIMENTAL: 1
       - uses: goreleaser/goreleaser-action@v2
         if: success() && startsWith(github.ref, 'refs/tags/')
         with:
