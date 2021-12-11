@@ -28,9 +28,7 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - uses: sigstore/cosign-installer@v1.3.1
-        with:
-          cosign-release: 'v1.4.0'
+      - uses: sigstore/cosign-installer@v1.4.1
       - run: cosign version
       - name: dockerhub-login
         if: startsWith(github.ref, 'refs/tags/v')
